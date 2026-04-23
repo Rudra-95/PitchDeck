@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Legacy dark tokens (kept for any stray references); prefer pitch-* below */
+  --color-obsidian-950: #0a0a0f;
+  --color-obsidian-900: #12121a;
+  --color-obsidian-800: #1c1c28;
+
+  /* Light “PitchDeck India” inspired surface */
+  --color-pitch-cream: #fffbf5;
+  --color-pitch-wash: #fff1e6;
+  --color-pitch-peach: #ffead5;
+  --color-pitch-accent: #ea580c;
+  --color-pitch-accent-hover: #c2410c;
+  --color-pitch-ink: #1c1917;
+
+  --color-fuchsia-glow: rgba(217, 70, 239, 0.35);
+  --color-indigo-glow: rgba(234, 88, 12, 0.35);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-pitch-cream text-stone-900 font-sans antialiased overflow-x-hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-orange-50/80;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-orange-200/90 hover:bg-orange-300;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .glass {
+    @apply border border-orange-200/60 bg-white/75 shadow-[0_8px_32px_-8px_rgba(234,88,12,0.12)] backdrop-blur-xl;
+  }
+
+  .glass-panel {
+    @apply border border-orange-100/80 bg-white/85 shadow-[0_12px_40px_-12px_rgba(234,88,12,0.15),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-2xl;
+  }
+
+  .text-glow-indigo {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 24px var(--color-indigo-glow);
+  }
+
+  .text-glow-fuchsia {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 20px var(--color-fuchsia-glow);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.92; transform: scale(1.02); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out 3s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 10s ease-in-out infinite;
+}
+
+/* Stress Tester Animations */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes fadeUp { 
+  from { opacity: 0; transform: translateY(14px); } 
+  to { opacity: 1; transform: none; } 
+}
