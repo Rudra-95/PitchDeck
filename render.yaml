@@ -19,7 +19,6 @@ services:
   - type: web
     name: pitchdeck-web
     env: static
-    plan: free
     rootDir: pitchdeck-web
     buildCommand: npm install && npm run build
     staticPublishPath: dist
