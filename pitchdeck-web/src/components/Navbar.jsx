@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { BookOpen, LayoutDashboard, LogIn, Menu, PlusCircle, Rocket, Sparkles, Trophy, UserCircle, Users, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Rocket, Trophy, Users, PlusCircle, LogIn, LayoutDashboard, Menu, X, UserCircle, BookOpen } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from './ui/Button';
 import api from '../api';
+import { Button } from './ui/Button';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -78,6 +78,20 @@ export default function Navbar() {
                         onClick={closeMobileMenu}
                     >
                         🤖 AI Stress Test
+                    </Link>
+                    <Link
+                        to="/founder-dna"
+                        className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
+                        onClick={closeMobileMenu}
+                    >
+                        <Users className="h-4 w-4" /> Founder DNA
+                    </Link>
+                    <Link
+                        to="/battle"
+                        className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
+                        onClick={closeMobileMenu}
+                    >
+                        <Sparkles className="h-4 w-4" /> Idea Battle
                     </Link>
                     <Link
                         to="/leaderboard"
@@ -186,6 +200,20 @@ export default function Navbar() {
                                 onClick={closeMobileMenu}
                             >
                                 🤖 AI Stress Test
+                            </Link>
+                            <Link
+                                to="/founder-dna"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-stone-700 hover:bg-orange-50/80"
+                                onClick={closeMobileMenu}
+                            >
+                                <Users className="h-4 w-4" /> Founder DNA
+                            </Link>
+                            <Link
+                                to="/battle"
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-stone-700 hover:bg-orange-50/80"
+                                onClick={closeMobileMenu}
+                            >
+                                <Sparkles className="h-4 w-4" /> Idea Battle
                             </Link>
                             <Link
                                 to="/leaderboard"

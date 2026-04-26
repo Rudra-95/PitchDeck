@@ -6,6 +6,7 @@ export default function SubmitIdea() {
     const [formData, setFormData] = useState({
         title: '',
         description: '', // We'll map problem/solution internally
+        market: '',
         category: 'Tech',
         looking_for: 'Feedback only',
         stage: 'Just an idea'
@@ -24,7 +25,7 @@ export default function SubmitIdea() {
         setError('');
         setLoading(true);
 
-        const combinedDescription = `**Problem:**\n${problem}\n\n**Solution:**\n${solution}`;
+        const combinedDescription = `**Problem:**\n${problem}\n\n**Solution:**\n${solution}\n\n**Target market:**\n${formData.market}\n\n**Stage:**\n${formData.stage}`;
 
         try {
             const res = await api.post('/ideas', {
@@ -98,6 +99,8 @@ export default function SubmitIdea() {
                                 type="text"
                                 placeholder="e.g. Gig workers in metro cities"
                                 className="w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-stone-900 placeholder-stone-400 focus:border-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 transition-colors"
+                                value={formData.market}
+                                onChange={(e) => setFormData({ ...formData, market: e.target.value })}
                             />
                         </div>
                         <div>

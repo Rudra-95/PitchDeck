@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import api from '../api';
 
 const SAFFRON = "#f97316";
@@ -266,6 +266,35 @@ export default function StressTester() {
             </div>
           </div>
 
+          {/* Market reality & pivot */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20, animation: "fadeUp .5s ease .4s both" }}>
+            <div style={{ background: "#fff", border: "1px solid #e8e4da", borderRadius: 16, padding: "24px 28px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9a9690", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>Market reality check</div>
+              <div style={{ fontSize: 14, color: "#1a1814", marginBottom: 12 }}><strong>Trend:</strong> {result.market_reality?.trend_signal || 'stable'}</div>
+              <div style={{ fontSize: 14, color: "#1a1814", marginBottom: 12 }}><strong>Estimated TAM:</strong> {result.market_reality?.estimated_tam || 'N/A'}</div>
+              <div style={{ fontSize: 13, color: "#4b5563", lineHeight: 1.8 }}>{result.market_reality?.signal_explanation || 'No trend signal available yet.'}</div>
+              <div style={{ marginTop: 14 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "#9a9690", textTransform: "uppercase", marginBottom: 10 }}>Competitor snapshot</div>
+                <ul style={{ margin: 0, paddingLeft: 18, color: "#334155" }}>
+                  {(result.market_reality?.competitor_snapshot || []).map((item, index) => (
+                    <li key={index} style={{ marginBottom: 8 }}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div style={{ background: "#fff", border: "1px solid #e8e4da", borderRadius: 16, padding: "24px 28px" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9a9690", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>Pivot generator</div>
+              <div style={{ display: "grid", gap: 10 }}>
+                {(result.pivot_advice || []).map((item, index) => (
+                  <div key={index} style={{ borderRadius: 12, background: "#f8fafc", padding: "14px 16px", color: "#1f2937" }}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* India insight */}
           <div style={{ background: "linear-gradient(135deg, #fff7ed, #faf8f3)", border: "1px solid #fed7aa", borderRadius: 16, padding: "20px 24px", marginBottom: 20, animation: "fadeUp .5s ease .4s both" }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: SAFFRON2, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>🇮🇳 India-Specific Insight</div>
@@ -283,10 +312,43 @@ export default function StressTester() {
             ))}
           </div>
 
+          {/* Failure risk */}
+          <div style={{ background: "#fff", border: "1px solid #fde68a", borderRadius: 16, padding: "24px 28px", marginBottom: 20, animation: "fadeUp .5s ease .55s both" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#b45309", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>Why startups fail</div>
+                <div style={{ fontSize: 18, fontWeight: 800, color: "#1f2937" }}>{result.failure_risk?.level || 'Medium'} risk</div>
+              </div>
+            </div>
+            <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.8 }}>{result.failure_risk?.reason || 'The biggest risks are execution clarity and market fit.'}</p>
+            <ul style={{ marginTop: 14, paddingLeft: 18, color: "#334155" }}>
+              {(result.failure_risk?.top_risks || []).map((risk, index) => (
+                <li key={index} style={{ marginBottom: 8 }}>{risk}</li>
+              ))}
+            </ul>
+          </div>
+
           {/* Shareable card */}
           <div style={{ animation: "fadeUp .5s ease .6s both" }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: "#9a9690", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>Your shareable result card</div>
             <ShareCard idea={result.idea} scores={result.scores} verdict={result.verdict} />
+          </div>
+
+          {/* Pitch deck preview */}
+          <div style={{ background: "#fff", border: "1px solid #e8e4da", borderRadius: 16, padding: "24px 28px", marginTop: 20, animation: "fadeUp .5s ease .65s both" }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#9a9690", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>AI pitch deck generator</div>
+            <div style={{ display: "grid", gap: 12 }}>
+              {(result.pitch_deck || []).map((slide, index) => (
+                <div key={index} style={{ borderRadius: 14, background: "#f8fafc", padding: "18px 20px" }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#0f172a", marginBottom: 8 }}>{slide.title}</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, color: "#334155" }}>
+                    {slide.bullets.map((bullet, bulletIndex) => (
+                      <li key={bulletIndex} style={{ marginBottom: 6 }}>{bullet}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
 
           <button onClick={() => setStep("form")} style={{ marginTop: 28, width: "100%", background: "#1a1814", color: "#fff", fontFamily: "'Inter', sans-serif", fontSize: 14, fontWeight: 500, padding: 14, borderRadius: 10, border: "none", cursor: "pointer" }}>

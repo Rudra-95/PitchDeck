@@ -1,23 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Navbar from './components/Navbar';
-import Landing from './pages/Landing';
-import Feed from './pages/Feed';
-import IdeaDetail from './pages/IdeaDetail';
-import Leaderboard from './pages/Leaderboard';
-import SubmitIdea from './pages/SubmitIdea';
-import CoFounderMatch from './pages/CoFounderMatch';
-import NotFound from './pages/NotFound';
-import Profile from './pages/Profile';
-import Auth from './pages/Auth';
-import Admin from './pages/Admin';
-import CheckoutSimulation from './pages/CheckoutSimulation';
-import InvestorPortal from './pages/InvestorPortal';
-import Playbook from './pages/Playbook';
-import ArticleDetail from './pages/ArticleDetail';
-import StressTester from './pages/StressTester';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import ChatBox from './components/ChatBox';
 import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import Admin from './pages/Admin';
+import ArticleDetail from './pages/ArticleDetail';
+import Auth from './pages/Auth';
+import CheckoutSimulation from './pages/CheckoutSimulation';
+import CoFounderMatch from './pages/CoFounderMatch';
+import Feed from './pages/Feed';
+import FounderDNA from './pages/FounderDNA';
+import IdeaBattle from './pages/IdeaBattle';
+import IdeaDetail from './pages/IdeaDetail';
+import InvestorPortal from './pages/InvestorPortal';
+import Landing from './pages/Landing';
+import Leaderboard from './pages/Leaderboard';
+import NotFound from './pages/NotFound';
+import Playbook from './pages/Playbook';
+import Profile from './pages/Profile';
+import StressTester from './pages/StressTester';
+import SubmitIdea from './pages/SubmitIdea';
 
 function App() {
   return (
@@ -69,6 +71,8 @@ function App() {
             <Route path="/submit" element={<SubmitIdea />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/cofounders" element={<CoFounderMatch />} />
+            <Route path="/founder-dna" element={<FounderDNA />} />
+            <Route path="/battle" element={<IdeaBattle />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />

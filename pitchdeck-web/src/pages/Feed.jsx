@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Filter, PlusCircle, Search, SlidersHorizontal } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api';
-import { GlassCard } from '../components/ui/GlassCard';
-import { Button } from '../components/ui/Button';
 import IdeaCard from '../components/IdeaCard';
 import IdeaGenerator from '../components/IdeaGenerator';
+import { Button } from '../components/ui/Button';
+import { GlassCard } from '../components/ui/GlassCard';
 
 export default function Feed() {
     const [sort, setSort] = useState('recent');
@@ -130,6 +130,11 @@ export default function Feed() {
                     <div className="mt-6 hidden lg:block">
                         <IdeaGenerator />
                     </div>
+                    <Link to="/battle" className="mt-6 block rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-white p-5 text-center transition hover:border-orange-300 hover:shadow-lg">
+                        <div className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">New</div>
+                        <div className="mt-3 text-lg font-bold text-stone-900">Idea Battle Mode</div>
+                        <p className="mt-2 text-sm text-stone-600">Vote between two pitches and get instant AI analysis.</p>
+                    </Link>
                 </aside>
 
                 <div className="min-w-0 flex-1">
