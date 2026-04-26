@@ -44,7 +44,7 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ type: 'spring', stiffness: 120, damping: 18 }}
-                className={`sticky top-4 z-50 mx-auto mt-4 flex w-full max-w-7xl items-center justify-between rounded-2xl px-6 py-4 transition-all duration-500 ${
+                className={`sticky top-4 z-50 mx-auto mt-4 flex w-[98%] items-center justify-between rounded-2xl px-8 py-5 transition-all duration-500 ${
                     scrolled
                         ? 'glass-panel border-orange-200/80 shadow-md shadow-orange-200/20'
                         : 'border border-transparent bg-white/40 shadow-sm backdrop-blur-md'
@@ -57,7 +57,7 @@ export default function Navbar() {
                     </span>
                 </Link>
 
-                <div className="hidden items-center gap-6 font-medium text-stone-600 md:flex">
+                <div className="hidden items-center gap-10 font-medium text-stone-600 md:flex">
                     <Link
                         to="/feed"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
