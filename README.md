@@ -104,16 +104,16 @@ PitchDeck aims to become a next-generation startup intelligence platform, where 
 
 ## 🚀 Getting Started (Local Setup)
 ### 1. Clone the repository
-bash
-git clone <your-repo-link>
-cd pitchdeck
+bash                          \\
+git clone <your-repo-link>     \\
+cd pitchdeck                   \\
 ### 2. Setup Backend
-cd pitchdeck-api
-npm install
-npm start
+cd pitchdeck-api               \\
+npm install                    \\
+npm start                      \\
 ### 3. Setup Frontend
-cd pitchdeck-web
-npm install
+cd pitchdeck-web               \\
+npm install                    \\
 npm run dev
 ### 4. Configure Environment Variables
 Create a .env file in backend:
