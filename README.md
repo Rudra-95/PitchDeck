@@ -100,25 +100,21 @@ It transforms traditional idea-sharing platforms into an **interactive thinking 
 ---
 
 ## 🎯 Vision
-
 PitchDeck aims to become a next-generation startup intelligence platform, where ideas are not just shared — but challenged, validated, and evolved using AI and community insights.
+
 ## 🚀 Getting Started (Local Setup)
----
 ### 1. Clone the repository
-```bash
+bash
 git clone <your-repo-link>
 cd pitchdeck
-
 ### 2. Setup Backend
 cd pitchdeck-api
 npm install
 npm start
-
 ### 3. Setup Frontend
 cd pitchdeck-web
 npm install
 npm run dev
-
 ### 4. Configure Environment Variables
 Create a .env file in backend:
 DATABASE_URL=
