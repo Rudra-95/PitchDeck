@@ -105,11 +105,8 @@ PitchDeck aims to become a next-generation startup intelligence platform, where 
 ## 🚀 Getting Started (Local Setup)
 ### 1. Clone the repository
 bash                          \
-
-git clone <your-repo-link>     \
-
+git clone <your-repo-link>      \
 cd pitchdeck                   \
-
 ### 2. Setup Backend
 cd pitchdeck-api               \
 
