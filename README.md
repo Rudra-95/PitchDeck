@@ -106,21 +106,16 @@ PitchDeck aims to become a next-generation startup intelligence platform, where 
 ### 1. Clone the repository
 bash                          \
 git clone <your-repo-link>      \
-cd pitchdeck                   \
+cd pitchdeck                   
 ### 2. Setup Backend
 cd pitchdeck-api               \
-
 npm install                    \
-
-npm start                      \
-
+npm start                      
 ### 3. Setup Frontend
 cd pitchdeck-web               \
-
 npm install                    \
-
 npm run dev
 ### 4. Configure Environment Variables
-Create a .env file in backend:
-DATABASE_URL=
+Create a .env file in backend:      \
+DATABASE_URL=                       \
 JWT_SECRET=
