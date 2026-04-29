@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Loader2, Sparkles, Rocket } from 'lucide-react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { Eye, EyeOff, Loader2, Rocket, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../api';
 
 export default function Auth() {
@@ -21,7 +21,7 @@ export default function Auth() {
             const endpoint = isLogin ? '/auth/login' : '/auth/register';
             const { data } = await api.post(endpoint, formData);
             localStorage.setItem('pitchdeck_token', data.token);
-            window.location.href = '/feed'; // full redirect to ensure app state reloads token
+            navigate('/feed');
         } catch (err) {
             setError(err.response?.data?.error || 'Authentication failed');
             setIsSubmitting(false);
@@ -29,12 +29,12 @@ export default function Auth() {
     };
 
     return (
-        <div className="flex min-h-[85vh] w-full items-center justify-center p-4">
-            <div className="relative flex w-full max-w-5xl overflow-hidden rounded-3xl border border-orange-200/90 bg-white/70 shadow-2xl shadow-orange-200/25 backdrop-blur-xl">
+        <div className="relative flex min-h-[85vh] w-full items-center justify-center p-4">
+            <div className="relative flex w-full max-w-5xl overflow-hidden rounded-3xl border border-slate-200/70 bg-slate-50/90 shadow-2xl shadow-slate-400/10 backdrop-blur-xl">
                 {/* Left Panel - Branding */}
                 <div className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-pitch-accent to-orange-600 p-12 text-white md:flex relative overflow-hidden">
-                    <div className="pointer-events-none absolute -bottom-16 -right-16 h-64 w-64 rounded-full bg-orange-400/50 blur-[80px]" />
-                    <div className="pointer-events-none absolute -top-16 -left-16 h-48 w-48 rounded-full bg-amber-300/40 blur-[80px]" />
+                    <div className="pointer-events-none absolute -bottom-16 -right-16 h-64 w-64 rounded-full bg-orange-400/30 blur-[80px]" />
+                    <div className="pointer-events-none absolute -top-16 -left-16 h-48 w-48 rounded-full bg-amber-300/20 blur-[80px]" />
                     
                     <div className="relative z-10 flex items-center gap-2">
                         <Rocket className="h-8 w-8 text-white" />

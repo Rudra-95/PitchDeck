@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 import ChatBox from './components/ChatBox';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -32,6 +32,16 @@ function App() {
             backgroundImage:
               'linear-gradient(to right, #ece8e1 1px, transparent 1px), linear-gradient(to bottom, #ece8e1 1px, transparent 1px)',
             backgroundSize: '48px 48px',
+          }}
+        />
+
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 15% 20%, rgba(15, 23, 40, 0.06) 0, transparent 18%), radial-gradient(circle at 85% 30%, rgba(15, 23, 40, 0.05) 0, transparent 16%), radial-gradient(circle at 40% 80%, rgba(15, 23, 40, 0.05) 0, transparent 20%)',
+            opacity: 0.65,
+            mixBlendMode: 'multiply',
           }}
         />
 
