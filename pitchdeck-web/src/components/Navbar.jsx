@@ -44,7 +44,7 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ type: 'spring', stiffness: 120, damping: 18 }}
-                className={`sticky top-4 z-50 mx-auto mt-4 flex w-[98%] items-center justify-between rounded-2xl px-8 py-5 transition-all duration-500 ${
+                className={`sticky top-4 z-50 mx-auto mt-4 flex w-[98%] items-center justify-between rounded-2xl px-4 lg:px-8 py-3 lg:py-5 transition-all duration-500 ${
                     scrolled
                         ? 'glass-panel border-orange-200/80 shadow-md shadow-orange-200/20'
                         : 'border border-transparent bg-white/40 shadow-sm backdrop-blur-md'
@@ -57,7 +57,7 @@ export default function Navbar() {
                     </span>
                 </Link>
 
-                <div className="hidden items-center gap-10 font-medium text-stone-600 md:flex">
+                <div className="hidden flex-wrap items-center justify-center gap-3 lg:gap-5 xl:gap-8 font-medium text-stone-600 md:flex md:flex-nowrap whitespace-nowrap text-sm xl:text-base">
                     <Link
                         to="/feed"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
@@ -128,12 +128,12 @@ export default function Navbar() {
                             </Link>
                             <button
                                 onClick={handleLogout}
-                                className="text-sm font-medium text-stone-500 transition-colors duration-300 hover:text-pitch-accent"
+                                className="text-sm font-medium text-stone-500 transition-colors duration-300 hover:text-pitch-accent whitespace-nowrap"
                             >
                                 Logout
                             </button>
                             {user && (
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-200 to-amber-200 shadow-inner font-bold text-pitch-accent border border-orange-300/50">
+                                <div className="flex h-8 w-8 lg:h-10 lg:w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-200 to-amber-200 shadow-inner font-bold text-pitch-accent border border-orange-300/50">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
                             )}
