@@ -45,7 +45,11 @@ const features = [
     },
 ];
 
-const stack = ['Vite + React', 'Tailwind v4', 'Express API', 'PostgreSQL', 'JWT Auth'];
+const metrics = [
+    { label: 'Ideas Stress-Tested', value: '2,500+' },
+    { label: 'Active Founders', value: '10k+' },
+    { label: 'Co-founder Matches', value: '450+' },
+];
 
 const tags = ['#Startups', '#Validation', '#Feedback', '#CoFounders', '#ProductMarketFit'];
 
@@ -178,18 +182,24 @@ export default function Landing() {
                 </motion.div>
             </section>
 
-            <section className="mx-auto mt-16 max-w-4xl px-4 text-center">
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
-                    Architecture you can trust
-                </p>
-                <div className="flex flex-wrap items-center justify-center gap-2">
-                    {stack.map((label) => (
-                        <span
-                            key={label}
-                            className="rounded-full border border-orange-200/70 bg-white/90 px-4 py-2 text-sm font-medium text-stone-700 shadow-sm backdrop-blur-md"
+            <section className="mx-auto mt-20 max-w-5xl px-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                    {metrics.map((m, i) => (
+                        <motion.div
+                            key={m.label}
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                            className="flex flex-col items-center justify-center rounded-2xl border border-orange-100/80 bg-white/60 py-8 shadow-sm backdrop-blur-md transition-transform duration-300 hover:-translate-y-1 hover:shadow-md hover:shadow-orange-100"
                         >
-                            {label}
-                        </span>
+                            <span className="bg-gradient-to-br from-pitch-accent to-orange-600 bg-clip-text text-4xl font-black text-transparent md:text-5xl">
+                                {m.value}
+                            </span>
+                            <span className="mt-2 text-sm font-medium uppercase tracking-wider text-stone-500">
+                                {m.label}
+                            </span>
+                        </motion.div>
                     ))}
                 </div>
             </section>
