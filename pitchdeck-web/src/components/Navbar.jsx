@@ -118,11 +118,11 @@ export default function Navbar() {
                     ) : null}
                 </div>
 
-                <div className="hidden items-center gap-4 md:flex">
+                <div className="hidden items-center gap-4 md:flex flex-shrink-0">
                     {token ? (
                         <div className="flex items-center gap-4">
-                            <Link to="/submit">
-                                <Button variant="primary" className="gap-2 px-4 py-2">
+                            <Link to="/submit" className="flex-shrink-0">
+                                <Button variant="primary" className="gap-2 px-4 py-2 whitespace-nowrap">
                                     <PlusCircle className="h-4 w-4" /> Submit Idea
                                 </Button>
                             </Link>
