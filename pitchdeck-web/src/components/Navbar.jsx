@@ -107,35 +107,28 @@ export default function Navbar() {
                     >
                         <Users className="h-4 w-4" /> Co-founders
                     </Link>
-                    {token ? (
-                        <Link
-                            to="/profile"
-                            className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
-                            onClick={closeMobileMenu}
-                        >
-                            <UserCircle className="h-4 w-4" /> Profile
-                        </Link>
-                    ) : null}
                 </div>
 
                 <div className="hidden items-center gap-4 md:flex flex-shrink-0">
                     {token ? (
                         <div className="flex items-center gap-4">
                             <Link to="/submit" className="flex-shrink-0">
-                                <Button variant="primary" className="gap-2 px-4 py-2 whitespace-nowrap">
-                                    <PlusCircle className="h-4 w-4" /> Submit Idea
+                                <Button variant="primary" className="gap-1.5 px-3 py-1.5 whitespace-nowrap text-sm">
+                                    <PlusCircle className="h-4 w-4" /> Submit
                                 </Button>
                             </Link>
                             <button
                                 onClick={handleLogout}
-                                className="text-sm font-medium text-stone-500 transition-colors duration-300 hover:text-pitch-accent whitespace-nowrap"
+                                className="text-xs lg:text-sm font-medium text-stone-500 transition-colors duration-300 hover:text-pitch-accent whitespace-nowrap"
                             >
                                 Logout
                             </button>
                             {user && (
-                                <div className="flex h-8 w-8 lg:h-10 lg:w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-200 to-amber-200 shadow-inner font-bold text-pitch-accent border border-orange-300/50">
-                                    {user.name.charAt(0).toUpperCase()}
-                                </div>
+                                <Link to="/profile" className="flex-shrink-0 cursor-pointer hover:scale-105 transition-transform">
+                                    <div className="flex h-8 w-8 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-200 to-amber-200 shadow-inner font-bold text-pitch-accent border border-orange-300/50">
+                                        {user.name.charAt(0).toUpperCase()}
+                                    </div>
+                                </Link>
                             )}
                         </div>
                     ) : (
