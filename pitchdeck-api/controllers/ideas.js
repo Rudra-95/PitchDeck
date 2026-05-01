@@ -10,7 +10,7 @@ const getAllIdeas = async (req, res, next) => {
         }
 
         let query =
-            'SELECT ideas.*, COUNT(votes.id)::int AS vote_count FROM ideas LEFT JOIN votes ON ideas.id = votes.idea_id';
+            'SELECT ideas.*, users.name AS author_name, users.email AS author_email, COUNT(votes.id)::int AS vote_count FROM ideas JOIN users ON ideas.user_id = users.id LEFT JOIN votes ON ideas.id = votes.idea_id';
         const params = [];
         const wheres = [];
 
@@ -26,7 +26,7 @@ const getAllIdeas = async (req, res, next) => {
         if (wheres.length > 0) {
             query += ` WHERE ${wheres.join(' AND ')}`;
         }
-        query += ' GROUP BY ideas.id';
+        query += ' GROUP BY ideas.id, users.id';
 
         if (sort === 'trending') {
             query += ' ORDER BY vote_count DESC, created_at DESC';
@@ -50,7 +50,7 @@ const getIdeaById = async (req, res, next) => {
         }
 
         const result = await db.query(
-            'SELECT ideas.*, COUNT(votes.id)::int AS vote_count FROM ideas LEFT JOIN votes ON ideas.id = votes.idea_id WHERE ideas.id = $1 GROUP BY ideas.id',
+            'SELECT ideas.*, users.name AS author_name, users.email AS author_email, COUNT(votes.id)::int AS vote_count FROM ideas JOIN users ON ideas.user_id = users.id LEFT JOIN votes ON ideas.id = votes.idea_id WHERE ideas.id = $1 GROUP BY ideas.id, users.id',
             [req.params.id]
         );
         if (result.rows.length === 0) return res.status(404).json({ error: 'Idea not found' });

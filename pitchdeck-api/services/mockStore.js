@@ -110,10 +110,15 @@ function getUserById(id) {
 }
 
 function listIdeas({ category, sort, looking_for } = {}) {
-    let list = ideas.map((idea) => ({
-        ...idea,
-        vote_count: voteCountForIdea(idea.id),
-    }));
+    let list = ideas.map((idea) => {
+        const u = users.find((x) => x.id === idea.user_id);
+        return {
+            ...idea,
+            author_name: u ? u.name : 'Unknown',
+            author_email: u ? u.email : '',
+            vote_count: voteCountForIdea(idea.id),
+        };
+    });
     if (category) list = list.filter((i) => i.category === category);
     if (looking_for) list = list.filter((i) => i.looking_for === looking_for);
     if (sort === 'trending') {
@@ -127,7 +132,8 @@ function listIdeas({ category, sort, looking_for } = {}) {
 function getIdeaById(id) {
     const idea = ideas.find((i) => i.id === Number(id));
     if (!idea) return null;
-    return { ...idea, vote_count: voteCountForIdea(idea.id) };
+    const u = users.find((x) => x.id === idea.user_id);
+    return { ...idea, author_name: u ? u.name : 'Unknown', author_email: u ? u.email : '', vote_count: voteCountForIdea(idea.id) };
 }
 
 function createIdea(userId, { title, description, category, looking_for }) {

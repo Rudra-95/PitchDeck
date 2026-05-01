@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Heart, UserPlus, ShieldCheck, MessageSquare, Loader2, CheckCircle2, Crown } from 'lucide-react';
+import { Heart, UserPlus, ShieldCheck, MessageSquare, Loader2, CheckCircle2, Crown, User, Mail, X, Send } from 'lucide-react';
 import api from '../api';
 import FeedbackForm from '../components/FeedbackForm';
 import { GlassCard } from '../components/ui/GlassCard';
@@ -17,6 +17,9 @@ export default function IdeaDetail() {
     const checkoutSuccessMsg = location.state?.message;
 
     const [voteStatus, setVoteStatus] = useState('');
+    const [isConnectOpen, setIsConnectOpen] = useState(false);
+    const [connectMessage, setConnectMessage] = useState('');
+    const [connectSent, setConnectSent] = useState(false);
 
     const { data: idea, refetch: refetchIdea } = useQuery({
         queryKey: ['idea', id],
@@ -73,6 +76,22 @@ export default function IdeaDetail() {
         });
     };
 
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        if (!connectMessage.trim()) return;
+        
+        // Use mailto as a fallback if the user wants to actually send an email
+        if (idea?.author_email) {
+            window.location.href = `mailto:${idea.author_email}?subject=PitchDeck Connection: ${encodeURIComponent(idea.title)}&body=${encodeURIComponent(connectMessage)}`;
+        }
+        setConnectSent(true);
+        setTimeout(() => {
+            setIsConnectOpen(false);
+            setConnectSent(false);
+            setConnectMessage('');
+        }, 2000);
+    };
+
     if (!idea)
         return (
             <div className="flex justify-center pt-24">
@@ -81,7 +100,7 @@ export default function IdeaDetail() {
         );
 
     return (
-        <div className="mx-auto max-w-5xl pt-8 pb-20">
+        <div className="mx-auto max-w-5xl pt-8 pb-20 relative">
             {checkoutSuccessMsg && (
                 <div className="mb-6 flex items-center gap-3 rounded-2xl border border-emerald-300/80 bg-emerald-50/90 px-6 py-4 text-emerald-900 shadow-md">
                     <CheckCircle2 className="h-6 w-6 text-emerald-600" />
@@ -89,13 +108,68 @@ export default function IdeaDetail() {
                 </div>
             )}
 
+            {/* Slide-out Connect Panel */}
+            <div className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white/95 backdrop-blur-2xl shadow-2xl border-l border-stone-200 z-50 transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isConnectOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <div className="p-6 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-8">
+                        <h3 className="text-xl font-bold text-stone-900 flex items-center gap-2">
+                            <Mail className="h-5 w-5 text-pitch-accent" /> Connect
+                        </h3>
+                        <button onClick={() => setIsConnectOpen(false)} className="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition">
+                            <X className="h-5 w-5" />
+                        </button>
+                    </div>
+                    
+                    <div className="mb-6 bg-orange-50/50 p-4 rounded-xl border border-orange-100">
+                        <p className="text-sm font-medium text-stone-700">You are initiating a connection with <span className="font-bold text-stone-900">{idea.author_name || 'the founder'}</span> regarding <span className="italic">{idea.title}</span>.</p>
+                    </div>
+
+                    {connectSent ? (
+                        <div className="flex-1 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-300">
+                            <div className="h-16 w-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
+                                <CheckCircle2 className="h-8 w-8 text-emerald-600" />
+                            </div>
+                            <h4 className="text-xl font-bold text-stone-900 mb-2">Message Sent!</h4>
+                            <p className="text-stone-500 text-sm">Your email client has been opened, and the founder will receive your request shortly.</p>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSendMessage} className="flex-1 flex flex-col">
+                            <label className="text-sm font-semibold text-stone-700 mb-2">Your Message</label>
+                            <textarea
+                                value={connectMessage}
+                                onChange={(e) => setConnectMessage(e.target.value)}
+                                placeholder={`Hi ${idea.author_name || 'there'}, I'd love to connect about your idea...`}
+                                className="w-full flex-1 rounded-xl border border-stone-200 p-4 text-stone-700 focus:border-pitch-accent focus:ring-2 focus:ring-orange-200 outline-none resize-none mb-4"
+                                required
+                            />
+                            <button type="submit" className="w-full bg-gradient-to-r from-stone-900 to-stone-800 text-white rounded-xl py-4 font-bold shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                                <Send className="h-5 w-5" /> Send Message
+                            </button>
+                        </form>
+                    )}
+                </div>
+            </div>
+
+            {/* Overlay for slide-out */}
+            {isConnectOpen && (
+                <div onClick={() => setIsConnectOpen(false)} className="fixed inset-0 bg-stone-900/20 backdrop-blur-sm z-40 animate-in fade-in duration-300" />
+            )}
+
             <GlassCard animate={true} className="relative mb-12 !overflow-visible !p-8 md:!p-12 border-orange-300/50 shadow-xl shadow-orange-900/5">
                 <div className="pointer-events-none absolute -right-32 -top-32 h-64 w-64 rounded-full bg-orange-300/30 blur-[100px]" />
 
                 <div className="mb-8 flex items-start justify-between relative z-10">
-                    <Badge variant="indigo" className="px-4 py-2 text-sm shadow-sm border border-indigo-200">
-                        {idea.category || 'Tech'}
-                    </Badge>
+                    <div className="flex flex-col gap-3">
+                        <Badge variant="indigo" className="px-4 py-2 text-sm shadow-sm border border-indigo-200 w-fit">
+                            {idea.category || 'Tech'}
+                        </Badge>
+                        {idea.author_name && (
+                            <div className="flex items-center gap-2 text-sm font-semibold text-stone-500">
+                                <User className="h-4 w-4" /> Pitched by <span className="text-stone-800">{idea.author_name}</span>
+                            </div>
+                        )}
+                    </div>
+                    
                     <button
                         type="button"
                         onClick={handleVote}
@@ -118,6 +192,15 @@ export default function IdeaDetail() {
                     ) : null}
 
                     <div className="flex flex-1 flex-col sm:flex-row justify-end gap-3 w-full">
+                        <button
+                            type="button"
+                            onClick={() => setIsConnectOpen(true)}
+                            className="flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white px-5 py-3 font-bold text-stone-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-stone-50 whitespace-nowrap"
+                        >
+                            <Mail className="h-5 w-5 text-stone-500" />
+                            Connect with Founder
+                        </button>
+                        
                         <button
                             type="button"
                             onClick={handleFeatureCheckout}
