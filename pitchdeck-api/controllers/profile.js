@@ -10,10 +10,13 @@ const getMyDashboard = async (req, res, next) => {
 
         if (db.isMockMode) {
             return res.json({
+                user: mockStore.getUserById(userId),
                 ideas: mockStore.listIdeasForUser(userId),
                 feedbackReceived: mockStore.listFeedbackOnUserIdeas(userId),
             });
         }
+
+        const userResult = await db.query('SELECT id, name, email FROM users WHERE id = $1', [userId]);
 
         const ideasResult = await db.query(
             `SELECT ideas.*,
@@ -33,6 +36,7 @@ const getMyDashboard = async (req, res, next) => {
         );
 
         res.json({
+            user: userResult.rows[0],
             ideas: ideasResult.rows,
             feedbackReceived: feedbackResult.rows,
         });

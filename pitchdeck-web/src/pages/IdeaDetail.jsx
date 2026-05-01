@@ -92,6 +92,30 @@ export default function IdeaDetail() {
         }, 2000);
     };
 
+    const renderFormattedText = (text) => {
+        if (!text) return null;
+        // Add newlines before bold markers if they don't have them
+        let processed = text.replace(/(\*\*.*?\*\*)/g, '\n$1');
+        // Clean up double newlines
+        processed = processed.replace(/\n\n+/g, '\n');
+        
+        return processed.split('\n').map((line, i) => {
+            if (!line.trim()) return null;
+            
+            const parts = line.split(/(\*\*.*?\*\*)/g);
+            return (
+                <p key={i} className="mb-4 last:mb-0">
+                    {parts.map((part, j) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                            return <span key={j} className="font-extrabold text-stone-900 tracking-tight">{part.slice(2, -2)}</span>;
+                        }
+                        return <span key={j}>{part}</span>;
+                    })}
+                </p>
+            );
+        });
+    };
+
     if (!idea)
         return (
             <div className="flex justify-center pt-24">
@@ -130,7 +154,11 @@ export default function IdeaDetail() {
                                 <CheckCircle2 className="h-8 w-8 text-emerald-600" />
                             </div>
                             <h4 className="text-xl font-bold text-stone-900 mb-2">Message Sent!</h4>
-                            <p className="text-stone-500 text-sm">Your email client has been opened, and the founder will receive your request shortly.</p>
+                            <p className="text-stone-500 text-sm mb-4">Your email client has been opened to send this to the founder.</p>
+                            <div className="bg-stone-50 border border-stone-200 rounded-lg p-3 w-full">
+                                <p className="text-xs text-stone-400 font-semibold uppercase tracking-wider mb-1">Founder's Email (Fallback)</p>
+                                <p className="text-sm font-mono text-stone-700 select-all">{idea.author_email || 'Not provided'}</p>
+                            </div>
                         </div>
                     ) : (
                         <form onSubmit={handleSendMessage} className="flex-1 flex flex-col">
@@ -179,44 +207,46 @@ export default function IdeaDetail() {
                     </button>
                 </div>
 
-                <h1 className="mb-6 text-4xl font-extrabold leading-tight text-stone-900 md:text-6xl drop-shadow-sm relative z-10">{idea.title}</h1>
-                <p className="mb-10 text-xl leading-relaxed text-stone-600 font-medium relative z-10">{idea.description}</p>
+                <h1 className="mb-8 text-4xl font-extrabold leading-tight text-stone-900 md:text-5xl drop-shadow-sm relative z-10">{idea.title}</h1>
+                <div className="mb-10 text-[1.1rem] leading-[1.8] text-stone-600 font-medium relative z-10">
+                    {renderFormattedText(idea.description)}
+                </div>
 
                 {voteStatus ? <p className="mb-4 text-sm font-semibold text-rose-700">{voteStatus}</p> : null}
 
-                <div className="flex flex-col sm:flex-row flex-wrap gap-4 border-t border-orange-200/70 pt-8 relative z-10">
+                <div className="flex flex-col lg:flex-row flex-wrap gap-4 border-t border-orange-200/70 pt-8 relative z-10 lg:items-center">
                     {idea.looking_for ? (
-                        <div className="flex items-center gap-2 rounded-xl border border-orange-200/80 bg-orange-50/80 px-4 py-3 font-bold text-orange-950 shadow-sm">
-                            <UserPlus className="h-5 w-5 text-pitch-accent" /> Seeking: {idea.looking_for}
+                        <div className="flex items-center gap-2 rounded-xl border border-orange-200/80 bg-orange-50/80 px-4 py-2.5 font-bold text-orange-950 shadow-sm whitespace-nowrap text-sm">
+                            <UserPlus className="h-4 w-4 text-pitch-accent" /> Seeking: {idea.looking_for}
                         </div>
                     ) : null}
 
-                    <div className="flex flex-1 flex-col sm:flex-row justify-end gap-3 w-full">
+                    <div className="flex flex-1 flex-wrap lg:justify-end gap-3">
                         <button
                             type="button"
                             onClick={() => setIsConnectOpen(true)}
-                            className="flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white px-5 py-3 font-bold text-stone-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-stone-50 whitespace-nowrap"
+                            className="flex items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm font-bold text-stone-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-stone-50 whitespace-nowrap"
                         >
-                            <Mail className="h-5 w-5 text-stone-500" />
-                            Connect with Founder
+                            <Mail className="h-4 w-4 text-stone-500" />
+                            Connect
                         </button>
                         
                         <button
                             type="button"
                             onClick={handleFeatureCheckout}
-                            className="flex items-center justify-center gap-2 rounded-xl border border-amber-300/90 bg-gradient-to-r from-amber-100 to-amber-50 px-5 py-3 font-bold text-amber-900 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-amber-500/20 active:scale-95 whitespace-nowrap"
+                            className="flex items-center justify-center gap-2 rounded-xl border border-amber-300/90 bg-gradient-to-r from-amber-100 to-amber-50 px-4 py-2.5 text-sm font-bold text-amber-900 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-amber-500/20 active:scale-95 whitespace-nowrap"
                         >
-                            <Crown className="h-5 w-5 text-amber-600" />
-                            Feature Idea ($9.99)
+                            <Crown className="h-4 w-4 text-amber-600" />
+                            Feature Idea
                         </button>
 
                         <button
                             type="button"
                             onClick={handleMentorCheckout}
-                            className="flex items-center justify-center gap-2 rounded-xl border border-emerald-300/90 bg-gradient-to-r from-emerald-50 to-teal-50 px-5 py-3 font-bold text-emerald-900 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-emerald-500/20 active:scale-95 whitespace-nowrap"
+                            className="flex items-center justify-center gap-2 rounded-xl border border-emerald-300/90 bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-2.5 text-sm font-bold text-emerald-900 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-emerald-500/20 active:scale-95 whitespace-nowrap"
                         >
-                            <ShieldCheck className="h-5 w-5 text-emerald-600" />
-                            Mentor Review ($19.99)
+                            <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                            Mentor Review
                         </button>
                     </div>
                 </div>

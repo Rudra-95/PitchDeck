@@ -73,10 +73,12 @@ export default function Profile() {
         ? `Your feedback is averaging ${averageScore}/10 across core validation metrics.`
         : 'Collect feedback to build your founder growth story.';
 
+    const userName = data?.user?.name ? data.user.name.split(' ')[0] : 'Your';
+
     return (
         <div className="mx-auto max-w-5xl pt-6">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
-                <h1 className="font-display text-4xl font-extrabold tracking-tight text-stone-900">Your dashboard</h1>
+                <h1 className="font-display text-4xl font-extrabold tracking-tight text-stone-900">{userName}&apos;s dashboard</h1>
                 <p className="mt-2 text-stone-600">Ideas you posted and validation from the community.</p>
             </motion.div>
 

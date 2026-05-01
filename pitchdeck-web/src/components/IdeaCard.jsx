@@ -65,7 +65,7 @@ export default function IdeaCard({ idea }) {
                 </h3>
                 
                 <p className="text-stone-600 mb-6 line-clamp-3 font-medium text-[15px] leading-relaxed">
-                    {idea.description}
+                    {idea.description ? idea.description.replace(/\*\*(.*?)\*\*/g, '$1') : ''}
                 </p>
             </Link>
             

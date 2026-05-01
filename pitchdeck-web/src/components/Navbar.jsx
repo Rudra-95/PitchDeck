@@ -105,7 +105,7 @@ export default function Navbar() {
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
                         onClick={closeMobileMenu}
                     >
-                        <Users className="h-4 w-4" /> Co-founders
+                        <Users className="h-4 w-4" /> Join a Project
                     </Link>
                 </div>
 
@@ -220,7 +220,7 @@ export default function Navbar() {
                                 className="flex items-center gap-2 rounded-lg px-3 py-2 text-stone-700 hover:bg-orange-50/80"
                                 onClick={closeMobileMenu}
                             >
-                                <Users className="h-4 w-4" /> Co-founders
+                                <Users className="h-4 w-4" /> Join a Project
                             </Link>
                             {token ? (
                                 <Link
