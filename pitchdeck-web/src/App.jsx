@@ -3,6 +3,7 @@ import { Route, HashRouter as Router, Routes } from 'react-router-dom';
 import ChatBox from './components/ChatBox';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import OnboardingTour from './components/OnboardingTour';
 import Admin from './pages/Admin';
 import ArticleDetail from './pages/ArticleDetail';
 import Auth from './pages/Auth';
@@ -71,6 +72,7 @@ function App() {
         </div>
 
         <Navbar />
+        <OnboardingTour />
         <ChatBox />
 
         <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 py-8">

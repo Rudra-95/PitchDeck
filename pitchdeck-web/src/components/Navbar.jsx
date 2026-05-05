@@ -59,6 +59,7 @@ export default function Navbar() {
 
                 <div className="hidden flex-wrap items-center justify-center gap-3 lg:gap-5 xl:gap-8 font-medium text-stone-600 md:flex md:flex-nowrap whitespace-nowrap text-sm xl:text-base">
                     <Link
+                        id="nav-feed"
                         to="/feed"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
                         onClick={closeMobileMenu}
@@ -66,6 +67,7 @@ export default function Navbar() {
                         <LayoutDashboard className="h-4 w-4" /> Feed
                     </Link>
                     <Link
+                        id="nav-playbook"
                         to="/playbook"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
                         onClick={closeMobileMenu}
@@ -73,6 +75,7 @@ export default function Navbar() {
                         <BookOpen className="h-4 w-4" /> Playbook
                     </Link>
                     <Link
+                        id="nav-stress-test"
                         to="/stress-test"
                         className="flex items-center gap-1.5 transition-colors duration-300 font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent hover:scale-105"
                         onClick={closeMobileMenu}
@@ -80,6 +83,7 @@ export default function Navbar() {
                         🤖 AI Stress Test
                     </Link>
                     <Link
+                        id="nav-founder-dna"
                         to="/founder-dna"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
                         onClick={closeMobileMenu}
@@ -87,6 +91,7 @@ export default function Navbar() {
                         <Users className="h-4 w-4" /> Founder DNA
                     </Link>
                     <Link
+                        id="nav-battle"
                         to="/battle"
                         className="flex items-center gap-2 transition-colors duration-300 hover:text-pitch-accent"
                         onClick={closeMobileMenu}
@@ -134,6 +139,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <Link
+                                id="nav-login"
                                 to="/auth"
                                 state={{ register: false }}
                                 className="text-sm font-medium text-stone-700 transition-colors duration-300 hover:text-pitch-accent"
