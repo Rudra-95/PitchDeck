@@ -111,4 +111,63 @@ const getMe = async (req, res, next) => {
     }
 };
 
-module.exports = { register, login, getMe };
+const crypto = require('crypto');
+const resetTokens = new Map();
+
+const forgotPassword = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        if (!email) return res.status(400).json({ error: 'Email is required' });
+
+        let userFound = false;
+        if (db.isMockMode) {
+            userFound = !!mockStore.findUserByEmail(email);
+        } else {
+            const result = await db.query('SELECT id FROM users WHERE email = $1', [email]);
+            userFound = result.rows.length > 0;
+        }
+
+        if (!userFound) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const token = crypto.randomBytes(32).toString('hex');
+        const expiresAt = Date.now() + 15 * 60 * 1000; // 15 mins
+        resetTokens.set(token, { email, expiresAt });
+
+        res.json({ 
+            message: 'Password reset link generated.', 
+            demoToken: token 
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+const resetPassword = async (req, res, next) => {
+    try {
+        const { token, newPassword } = req.body;
+        if (!token || !newPassword) return res.status(400).json({ error: 'Token and new password required' });
+
+        const tokenData = resetTokens.get(token);
+        if (!tokenData || tokenData.expiresAt < Date.now()) {
+            return res.status(400).json({ error: 'Invalid or expired reset token' });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const { email } = tokenData;
+
+        if (db.isMockMode) {
+            mockStore.updateUserPassword(email, hashedPassword);
+        } else {
+            await db.query('UPDATE users SET password_hash = $1 WHERE email = $2', [hashedPassword, email]);
+        }
+
+        resetTokens.delete(token);
+        res.json({ message: 'Password has been successfully reset.' });
+    } catch (err) {
+        next(err);
+    }
+};
+
+module.exports = { register, login, getMe, forgotPassword, resetPassword };

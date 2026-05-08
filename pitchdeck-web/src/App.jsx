@@ -21,6 +21,8 @@ import Playbook from './pages/Playbook';
 import Profile from './pages/Profile';
 import StressTester from './pages/StressTester';
 import SubmitIdea from './pages/SubmitIdea';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
@@ -87,6 +89,8 @@ function App() {
             <Route path="/battle" element={<IdeaBattle />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/checkout" element={<CheckoutSimulation />} />
             <Route path="/investors" element={<InvestorPortal />} />

@@ -137,6 +137,18 @@ export default function Auth() {
                                 </div>
                             </div>
 
+                            {isLogin && (
+                                <div className="text-right">
+                                    <button
+                                        type="button"
+                                        onClick={() => navigate('/forgot-password')}
+                                        className="text-sm font-semibold text-pitch-accent hover:underline focus:outline-none"
+                                    >
+                                        Forgot Password?
+                                    </button>
+                                </div>
+                            )}
+
                             <button
                                 disabled={isSubmitting}
                                 type="submit"

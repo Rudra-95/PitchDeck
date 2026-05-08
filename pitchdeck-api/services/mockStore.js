@@ -277,10 +277,18 @@ function listFeedbackOnUserIdeas(userId) {
         });
 }
 
+function updateUserPassword(email, newPasswordHash) {
+    const user = users.find((u) => u.email.toLowerCase() === String(email).toLowerCase());
+    if (user) {
+        user.password_hash = newPasswordHash;
+    }
+}
+
 module.exports = {
     registerUser,
     verifyLogin,
     getUserById,
+    findUserByEmail,
     listIdeas,
     getIdeaById,
     createIdea,
@@ -292,6 +300,7 @@ module.exports = {
     addMentorRequest,
     listIdeasForUser,
     listFeedbackOnUserIdeas,
+    updateUserPassword,
     users,
     ideas,
     feedback,
